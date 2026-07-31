@@ -19,9 +19,9 @@
       <defs>
         <!-- vernis PCB -->
         <linearGradient id="pcb" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stop-color="#123a1e"/>
-          <stop offset=".5" stop-color="#0d2c16"/>
-          <stop offset="1" stop-color="#081f0f"/>
+          <stop offset="0" stop-color="#191c1f"/>
+          <stop offset=".5" stop-color="#0f1113"/>
+          <stop offset="1" stop-color="#08090a"/>
         </linearGradient>
         <linearGradient id="pcbSheen" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0" stop-color="#ffffff" stop-opacity=".07"/>
@@ -100,7 +100,7 @@
         </pattern>
 
         <!-- filtres -->
-        <filter id="pcbNoise"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="7" stitchTiles="stitch"/><feColorMatrix type="matrix" values="0 0 0 0 0  0 0 0 0 0.15  0 0 0 0 0.05  0 0 0 0.5 0"/></filter>
+        <filter id="pcbNoise"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="7" stitchTiles="stitch"/><feColorMatrix type="matrix" values="0 0 0 0 0.10  0 0 0 0 0.11  0 0 0 0 0.10  0 0 0 0.5 0"/></filter>
         <filter id="soft" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="3" stdDeviation="3.5" flood-color="#000" flood-opacity="0.55"/></filter>
         <filter id="soft2" x="-40%" y="-40%" width="180%" height="180%"><feDropShadow dx="0" dy="5" stdDeviation="6" flood-color="#000" flood-opacity="0.55"/></filter>
         <filter id="rgb" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="14"/></filter>
@@ -142,24 +142,44 @@
         </g>
       </defs>
 
-      <!-- ============ PCB ============ -->
-      <rect x="20" y="20" width="1160" height="780" rx="26" fill="url(#pcb)"/>
-      <rect x="20" y="20" width="1160" height="780" rx="26" fill="url(#pcb)" filter="url(#pcbNoise)" opacity="0.35"/>
+      <!-- ============ PCB (noir mat, légèrement translucide) ============ -->
+      <rect x="20" y="20" width="1160" height="780" rx="26" fill="url(#pcb)" fill-opacity="0.85"/>
+      <rect x="20" y="20" width="1160" height="780" rx="26" fill="url(#pcb)" filter="url(#pcbNoise)" opacity="0.25"/>
       <rect x="20" y="20" width="1160" height="780" rx="26" fill="url(#pcbVign)"/>
-      <rect x="22" y="22" width="1156" height="776" rx="25" fill="none" stroke="#2f5a3a" stroke-opacity=".5" stroke-width="1.5"/>
+      <rect x="22" y="22" width="1156" height="776" rx="25" fill="none" stroke="#ffffff" stroke-opacity=".07" stroke-width="1.5"/>
       <rect x="20" y="20" width="1160" height="780" rx="26" fill="url(#pcbSheen)"/>
 
-      <!-- pistes cuivre subtiles (sous vernis) + vias dorées -->
-      <g stroke="#1f6e39" stroke-opacity=".5" fill="none" stroke-width="1.3">
-        <path d="M700 250 H980 M700 270 H980 M700 290 H960"/>
-        <path d="M300 470 V620 M330 470 V600"/>
-        <path d="M620 300 H700 V470"/>
-        <path d="M980 470 H1060 V300"/>
+      <!-- ============ PISTES (visibles) + lumière qui les parcourt ============ -->
+      <!-- base -->
+      <g fill="none" stroke="#b4e01a" stroke-opacity=".28" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round">
+        <path d="M652 250 H770"/><path d="M652 285 H822"/><path d="M652 320 H874"/>
+        <path d="M436 300 H300 V150"/><path d="M700 430 V540 H600"/>
+        <path d="M800 600 H1000 V560"/><path d="M800 650 H1050"/>
+        <path d="M600 705 H120"/><path d="M660 96 V60 H96"/>
+        <path d="M1000 200 H700 V120"/><path d="M966 300 H1010"/>
+        <path d="M300 470 V700 H400"/><path d="M900 646 V705 H560"/>
+        <path d="M120 400 H96 V560"/><path d="M200 785 H1000"/><path d="M470 452 V300"/>
       </g>
-      <g fill="#0a140d" stroke="url(#gold)" stroke-width="1.4">
-        <circle cx="700" cy="250" r="3.5"/><circle cx="980" cy="270" r="3.5"/>
-        <circle cx="300" cy="620" r="3.5"/><circle cx="620" cy="470" r="3.5"/>
-        <circle cx="1060" cy="300" r="3.5"/>
+      <!-- lumière (flux) -->
+      <g fill="none" stroke="#d0f24a" stroke-width="2.2" stroke-linecap="round" filter="url(#glow)">
+        <path class="flux" pathLength="100" style="--d:2.8s;--delay:0s"   d="M652 250 H770"/>
+        <path class="flux" pathLength="100" style="--d:3.4s;--delay:.6s"  d="M652 320 H874"/>
+        <path class="flux" pathLength="100" style="--d:4s;--delay:.2s"    d="M436 300 H300 V150"/>
+        <path class="flux" pathLength="100" style="--d:3.6s;--delay:1s"   d="M700 430 V540 H600"/>
+        <path class="flux" pathLength="100" style="--d:4.6s;--delay:.4s"  d="M800 600 H1000 V560"/>
+        <path class="flux" pathLength="100" style="--d:5s;--delay:1.4s"   d="M600 705 H120"/>
+        <path class="flux" pathLength="100" style="--d:4.2s;--delay:.9s"  d="M1000 200 H700 V120"/>
+        <path class="flux" pathLength="100" style="--d:3.8s;--delay:1.8s" d="M300 470 V700 H400"/>
+        <path class="flux" pathLength="100" style="--d:4.4s;--delay:.5s"  d="M900 646 V705 H560"/>
+        <path class="flux" pathLength="100" style="--d:6s;--delay:.2s"    d="M200 785 H1000"/>
+      </g>
+      <!-- vias dorées -->
+      <g fill="#0a0c0d" stroke="url(#gold)" stroke-width="1.4">
+        <circle cx="652" cy="250" r="3.5"/><circle cx="770" cy="250" r="3.5"/>
+        <circle cx="700" cy="430" r="3.5"/><circle cx="800" cy="600" r="3.5"/>
+        <circle cx="600" cy="705" r="3.5"/><circle cx="300" cy="470" r="3.5"/>
+        <circle cx="1000" cy="200" r="3.5"/><circle cx="120" cy="400" r="3.5"/>
+        <circle cx="470" cy="452" r="3.5"/>
       </g>
 
       <!-- ============ VRM heatsinks (autour du CPU) ============ -->
@@ -296,7 +316,7 @@
 
       <!-- ============ M.2 SSD ============ -->
       <g filter="url(#soft)">
-        <rect x="360" y="600" width="220" height="30" rx="4" fill="#0c2a16" stroke="#1f6e39"/>
+        <rect x="360" y="600" width="220" height="30" rx="4" fill="#111418" stroke="#2a2f36"/>
         <rect x="368" y="606" width="150" height="18" rx="2" fill="#111418"/>       <!-- puce contrôleur -->
         <text x="443" y="619" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9" fill="#6b7078">LIPATECH SSD</text>
         <use href="#screw" transform="translate(566 615) scale(.5)"/>
