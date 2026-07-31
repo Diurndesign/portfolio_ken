@@ -1,49 +1,104 @@
 // ============================================================
-//  Téléphone posé sur le bureau (vue mobile) + apps
+//  Téléphone réaliste (cadre titane) + apps (vue mobile)
 // ============================================================
 @use 'variables' as *;
 @use 'mixins' as *;
 
 .device--phone {
-  --h: min(86vh, 720px);
+  --h: min(84vh, 720px);
+  position: relative;
 }
 
+// Ombre de contact / réflexion au sol
+.device--phone::after {
+  content: '';
+  position: absolute;
+  left: 50%; bottom: -24px;
+  transform: translateX(-50%);
+  width: 72%; height: 34px;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(0,0,0,0.6), transparent 78%);
+  filter: blur(8px);
+}
+
+// --- Le cadre métal ---
 .phone {
   position: relative;
   height: var(--h);
-  aspect-ratio: 9 / 19;
-  padding: 12px;
-  border-radius: 42px;
-  background: linear-gradient(160deg, $bezel-1, $bezel-2);
+  aspect-ratio: 9 / 19.3;
+  padding: 10px;
+  border-radius: 46px;
+  // dégradé "titane" avec bandes spéculaires
+  background:
+    linear-gradient(122deg,
+      $metal-2 0%, $metal-hi 11%, $metal-1 25%, $metal-2 49%,
+      $metal-1 73%, $metal-hi 88%, $metal-2 100%);
   box-shadow:
-    0 2px 0 rgba(255,255,255,0.08) inset,
-    0 40px 70px -25px rgba(0,0,0,0.85),
-    0 12px 24px -8px rgba(0,0,0,0.6);
+    inset 0 0 0 1px rgba(255,255,255,0.55),     // fine arête brillante
+    inset 0 2px 3px rgba(255,255,255,0.6),
+    inset 0 -3px 6px rgba(0,0,0,0.4),
+    0 45px 70px -25px rgba(0,0,0,0.85),
+    0 18px 32px -12px rgba(0,0,0,0.6);
+
+  // grain métal sur le cadre (sous l'écran)
+  &::after {
+    @include grain(0.08, overlay, 110px);
+    z-index: 1;
+    border-radius: 46px;
+  }
 
   &__screen {
     position: relative;
+    z-index: 2;
     height: 100%;
-    border-radius: 32px;
+    border-radius: 38px;
     overflow: hidden;
     background: #000;
+    box-shadow: inset 0 0 0 2px #05070c, inset 0 0 34px rgba(0,0,0,0.5);
+
+    // Reflet / éclat du verre
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 70;
+      background:
+        linear-gradient(125deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.05) 13%, transparent 30%),
+        radial-gradient(52% 30% at 80% 3%, rgba(255,255,255,0.13), transparent 60%);
+      mix-blend-mode: screen;
+    }
   }
 
-  // encoche
-  &__speaker {
+  // Dynamic Island (encoche pilule)
+  &__island {
     position: absolute;
     top: 20px; left: 50%; transform: translateX(-50%);
-    width: 34%; height: 22px;
-    background: $bezel-2;
-    border-radius: 0 0 16px 16px;
+    width: 33%; height: 26px;
+    border-radius: 16px;
+    background: #000;
     z-index: 60;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06), 0 1px 2px rgba(0,0,0,0.6);
   }
-  // barre "home"
+
+  // Barre "home"
   &__home {
     position: absolute;
-    bottom: 20px; left: 50%; transform: translateX(-50%);
-    width: 34%; height: 5px; border-radius: 5px;
-    background: rgba(255,255,255,0.7);
+    bottom: 18px; left: 50%; transform: translateX(-50%);
+    width: 32%; height: 5px; border-radius: 5px;
+    background: rgba(255,255,255,0.75);
     z-index: 60;
+  }
+
+  // Boutons latéraux
+  &__btn {
+    position: absolute;
+    z-index: 0;
+    background: linear-gradient(180deg, $metal-3, $metal-2 50%, $metal-3);
+    box-shadow: inset 0 1px 1px rgba(255,255,255,0.3);
+    &--power { right: -3px; top: 27%; width: 3px; height: 66px; border-radius: 0 3px 3px 0; }
+    &--vup   { left: -3px; top: 23%; width: 3px; height: 40px; border-radius: 3px 0 0 3px; }
+    &--vdn   { left: -3px; top: 32%; width: 3px; height: 40px; border-radius: 3px 0 0 3px; }
   }
 }
 
@@ -62,13 +117,10 @@
 .statusbar {
   position: absolute;
   top: 0; left: 0; right: 0;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 26px;
-  font-size: 12px;
-  font-weight: 600;
+  height: 44px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 30px;
+  font-size: 12px; font-weight: 600;
   z-index: 40;
   &__time { font-variant-numeric: tabular-nums; }
 }
@@ -77,9 +129,8 @@
 .homescreen {
   position: absolute;
   inset: 0;
-  padding: 52px 20px 30px;
-  display: flex;
-  flex-direction: column;
+  padding: 58px 22px 34px;
+  display: flex; flex-direction: column;
   transition: transform .28s ease, filter .28s ease, opacity .28s;
   &.is-behind { transform: scale(0.96); filter: brightness(0.6); }
 }
@@ -93,9 +144,7 @@
     margin: 0 auto 12px;
     border-radius: 50%;
     display: grid; place-items: center;
-    font-family: $font-heading;
-    font-weight: 700;
-    font-size: 28px;
+    font-family: $font-heading; font-weight: 700; font-size: 28px;
     color: #04121f;
     background: linear-gradient(135deg, $os-accent, #6366f1);
     box-shadow: 0 10px 24px -8px rgba($os-accent,0.6);
@@ -112,10 +161,7 @@
 }
 
 .app {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 7px;
+  display: flex; flex-direction: column; align-items: center; gap: 7px;
 
   &__icon {
     width: 58px; height: 58px;
@@ -143,10 +189,8 @@
   position: absolute;
   inset: 0;
   z-index: 50;
-  display: flex;
-  flex-direction: column;
-  background:
-    linear-gradient(160deg, #101a33, #0a1122);
+  display: flex; flex-direction: column;
+  background: linear-gradient(160deg, #101a33, #0a1122);
   transform: translateX(100%);
   transition: transform .28s ease;
   &.is-open { transform: none; }
@@ -154,27 +198,19 @@
   &__bar {
     flex: 0 0 auto;
     height: 52px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 8px 16px 0;
-    margin-top: 34px;
+    display: flex; align-items: center; gap: 12px;
+    padding: 8px 18px 0;
+    margin-top: 40px;
     border-bottom: 1px solid rgba(255,255,255,0.08);
   }
-  &__back {
-    background: none; border: 0;
-    color: $os-accent;
-    font-size: 15px;
-    font-weight: 600;
-    padding: 4px 0;
-  }
+  &__back { background: none; border: 0; color: $os-accent; font-size: 15px; font-weight: 600; padding: 4px 0; }
   &__title { font-family: $font-heading; font-weight: 600; font-size: 14px; }
 
   &__body {
     flex: 1;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-    padding: 18px 20px 40px;
+    padding: 18px 22px 40px;
     color: #eaf1fb;
   }
 }

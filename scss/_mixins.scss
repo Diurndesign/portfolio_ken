@@ -12,3 +12,17 @@
 @mixin phone {
   @media (max-width: $bp-phone - 1px) { @content; }
 }
+
+// Couche de grain photographique à poser dans un pseudo-élément.
+// Usage : &::after { @include grain(.06); z-index: 3; }
+@mixin grain($op: 0.06, $blend: overlay, $size: 160px) {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("#{$noise}");
+  background-size: $size;
+  background-repeat: repeat;
+  opacity: $op;
+  mix-blend-mode: $blend;
+}

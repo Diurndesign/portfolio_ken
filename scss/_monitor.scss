@@ -1,63 +1,106 @@
 // ============================================================
-//  Écran d'ordinateur + système "KenOS" + fenêtres
+//  Écran d'ordinateur réaliste + système "KenOS" + fenêtres
 // ============================================================
 @use 'variables' as *;
 @use 'mixins' as *;
 
-// --- Le moniteur (bezel + pied) ---
 .device--desktop {
   // Largeur limitée à la fois par la largeur ET la hauteur dispo
-  --w: min(90vw, 1160px, calc((100vh - 150px) * 1.6));
-  // Note : la mise en page (flex colonne) et l'affichage sont gérés
-  // dans _scene.scss, à l'intérieur de la media query "desktop",
-  // pour ne pas écraser le display:none quand on est sur mobile.
+  --w: min(88vw, 1120px, calc((100vh - 170px) * 1.6));
 }
 
+// Ombre de contact / réflexion au sol sous tout l'ensemble
+.device--desktop::after {
+  content: '';
+  width: 60%;
+  height: 30px;
+  margin-top: 6px;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(0,0,0,0.6), transparent 78%);
+  filter: blur(7px);
+}
+
+// --- Le châssis du moniteur ---
 .monitor {
+  position: relative;
   width: var(--w);
-  padding: 14px;
-  border-radius: 20px;
-  background: linear-gradient(160deg, $bezel-1, $bezel-2);
+  padding: 16px 16px 14px;
+  border-radius: 22px;
+  background:
+    linear-gradient(180deg, $frame-1 0%, $frame-2 14%, $frame-2 78%, $frame-3 100%);
   box-shadow:
-    0 2px 0 rgba(255,255,255,0.06) inset,
-    0 40px 80px -30px rgba(0,0,0,0.8),
-    0 10px 30px -10px rgba(0,0,0,0.6);
+    inset 0 1.5px 0 rgba(255,255,255,0.30),   // arête supérieure éclairée
+    inset 0 0 0 1px rgba(0,0,0,0.55),
+    inset 0 -10px 22px rgba(0,0,0,0.5),        // creux du bas
+    0 55px 90px -30px rgba(0,0,0,0.85),        // ombre portée
+    0 22px 45px -22px rgba(0,0,0,0.6);
+
+  // grain / métal brossé sur le châssis (sous l'écran)
+  &::after {
+    @include grain(0.13, overlay, 130px);
+    z-index: 1;
+    border-radius: 22px;
+  }
+
+  &__cam {
+    position: absolute;
+    top: 7px; left: 50%; transform: translateX(-50%);
+    width: 6px; height: 6px; border-radius: 50%;
+    background: radial-gradient(circle at 38% 34%, #33475a, #05080b 72%);
+    box-shadow: 0 0 0 2px rgba(0,0,0,0.5), inset 0 0 2px rgba(120,180,255,0.6);
+    z-index: 5;
+  }
 
   &__screen {
     position: relative;
+    z-index: 2;                                 // au-dessus du grain du châssis
     aspect-ratio: 16 / 10;
-    border-radius: 8px;
+    border-radius: 6px;
     overflow: hidden;
     background: #000;
-    box-shadow: 0 0 0 2px #05070c, 0 0 60px rgba($os-accent, 0.12) inset;
-  }
+    box-shadow:
+      0 0 0 3px #050608,                         // liseré verre noir
+      inset 0 0 0 1px rgba(255,255,255,0.05),
+      inset 0 0 44px rgba(0,0,0,0.55);           // vignettage écran
 
-  &__brand {
-    width: 100%;
-    height: 14px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    // Reflet / éclat du verre (au-dessus de l'interface)
     &::after {
       content: '';
-      width: 46px; height: 4px; border-radius: 4px;
-      background: rgba(255,255,255,0.12);
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 80;
+      background:
+        linear-gradient(118deg, rgba(255,255,255,0.13) 0%, rgba(255,255,255,0.04) 15%, transparent 33%),
+        radial-gradient(60% 42% at 82% 4%, rgba(255,255,255,0.12), transparent 62%);
+      mix-blend-mode: screen;
     }
   }
 
-  &__neck {
-    width: 90px;
-    height: 46px;
-    background: linear-gradient(180deg, $metal, $bezel-2);
-    clip-path: polygon(30% 0, 70% 0, 82% 100%, 18% 100%);
+  &__brand {
+    height: 14px;
+    display: flex; justify-content: center; align-items: center;
+    position: relative; z-index: 2;
+    &::after {
+      content: '';
+      width: 44px; height: 4px; border-radius: 4px;
+      background: linear-gradient(90deg, rgba(255,255,255,0.05), rgba(255,255,255,0.18), rgba(255,255,255,0.05));
+    }
   }
 
+  // Pied aluminium
+  &__neck {
+    width: 24%; max-width: 128px; height: 54px;
+    margin-top: -1px;
+    background: linear-gradient(90deg, $metal-3 0%, $metal-2 18%, $metal-hi 50%, $metal-2 82%, $metal-3 100%);
+    clip-path: polygon(34% 0, 66% 0, 79% 100%, 21% 100%);
+    box-shadow: inset 0 -6px 10px rgba(0,0,0,0.35);
+  }
   &__foot {
-    width: 210px;
-    height: 16px;
+    width: 28%; max-width: 250px; height: 18px;
     border-radius: 50%;
-    background: linear-gradient(180deg, $metal, $bezel-2);
-    box-shadow: 0 14px 24px -8px rgba(0,0,0,0.7);
+    background: linear-gradient(180deg, $metal-1 0%, $metal-2 45%, $metal-3 100%);
+    box-shadow: 0 16px 26px -10px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.4);
   }
 }
 
@@ -79,9 +122,7 @@
   position: absolute;
   top: 0; left: 0; right: 0;
   height: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  display: flex; align-items: center; justify-content: space-between;
   padding: 0 12px;
   background: rgba(10, 16, 30, 0.55);
   backdrop-filter: blur(10px);
@@ -90,10 +131,7 @@
   z-index: 50;
 
   &__left, &__right { display: flex; align-items: center; gap: 14px; }
-  &__logo {
-    width: 13px; height: 13px; border-radius: 3px;
-    background: linear-gradient(135deg, $os-accent, #6366f1);
-  }
+  &__logo { width: 13px; height: 13px; border-radius: 3px; background: linear-gradient(135deg, $os-accent, #6366f1); }
   &__brand { font-family: $font-heading; letter-spacing: .3px; }
   &__item { color: rgba(255,255,255,0.7); }
   &__clock { font-variant-numeric: tabular-nums; }
@@ -103,9 +141,7 @@
 .desktop-icons {
   position: absolute;
   top: 44px; left: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
+  display: flex; flex-direction: column; gap: 6px;
   z-index: 10;
 }
 
@@ -113,10 +149,7 @@
   width: 96px;
   padding: 8px 6px;
   border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
   text-align: center;
   cursor: pointer;
   transition: background .15s;
@@ -126,17 +159,9 @@
   &.is-selected { background: rgba($os-accent, 0.22); }
 
   .folder { width: 54px; height: auto; filter: drop-shadow(0 4px 6px rgba(0,0,0,.35)); }
-
-  &__glyph {
-    position: absolute;
-    top: 20px;
-    font-size: 20px;
-    filter: drop-shadow(0 1px 1px rgba(0,0,0,.3));
-  }
+  &__glyph { position: absolute; top: 20px; font-size: 20px; filter: drop-shadow(0 1px 1px rgba(0,0,0,.3)); }
   &__label {
-    font-size: 0.78em;
-    line-height: 1.2;
-    color: #eef4ff;
+    font-size: 0.78em; line-height: 1.2; color: #eef4ff;
     text-shadow: 0 1px 3px rgba(0,0,0,.6);
   }
 }
@@ -155,17 +180,16 @@
 // --- Couche des fenêtres ---
 .windows {
   position: absolute;
-  inset: 30px 0 0 0;   // sous la barre de menu
+  inset: 30px 0 0 0;
   z-index: 20;
-  pointer-events: none;    // seules les fenêtres captent les clics
+  pointer-events: none;
 }
 
 .window {
   position: absolute;
   width: min(440px, 66%);
   max-height: 82%;
-  display: flex;
-  flex-direction: column;
+  display: flex; flex-direction: column;
   background: $win-bg;
   color: $ink;
   border-radius: $radius;
@@ -181,50 +205,27 @@
   &.is-max { left: 3% !important; top: 8px !important; width: 94%; max-height: 92%; }
 
   &__bar {
-    height: 38px;
-    flex: 0 0 auto;
-    display: flex;
-    align-items: center;
-    gap: 10px;
+    height: 38px; flex: 0 0 auto;
+    display: flex; align-items: center; gap: 10px;
     padding: 0 12px;
     background: $win-bar;
     border-bottom: 1px solid $win-border;
-    cursor: grab;
-    touch-action: none;
+    cursor: grab; touch-action: none;
     &:active { cursor: grabbing; }
   }
-
   &__lights { display: flex; gap: 7px; }
-  &__title {
-    font-family: $font-heading;
-    font-size: 0.86em;
-    font-weight: 600;
-    color: $ink;
-  }
-
-  &__body {
-    padding: 20px 22px 24px;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-  }
+  &__title { font-family: $font-heading; font-size: 0.86em; font-weight: 600; color: $ink; }
+  &__body { padding: 20px 22px 24px; overflow-y: auto; -webkit-overflow-scrolling: touch; }
 }
 
 .light {
-  width: 12px; height: 12px;
-  border-radius: 50%;
-  border: 0;
-  padding: 0;
+  width: 12px; height: 12px; border-radius: 50%; border: 0; padding: 0;
+  box-shadow: inset 0 0 0 0.5px rgba(0,0,0,0.2), inset 0 1px 1px rgba(255,255,255,0.4);
   &--close { background: #ff5f57; }
   &--min   { background: #febc2e; }
   &--zoom  { background: #28c840; }
-  &:hover { filter: brightness(0.9); }
+  &:hover { filter: brightness(0.92); }
 }
 
-@keyframes win-in {
-  0%   { opacity: 0; transform: scale(0.96) translateY(6px); }
-  100% { opacity: 1; transform: none; }
-}
-@keyframes win-out {
-  0%   { opacity: 1; transform: none; }
-  100% { opacity: 0; transform: scale(0.96) translateY(6px); }
-}
+@keyframes win-in  { 0% { opacity: 0; transform: scale(0.96) translateY(6px); } 100% { opacity: 1; transform: none; } }
+@keyframes win-out { 0% { opacity: 1; transform: none; } 100% { opacity: 0; transform: scale(0.96) translateY(6px); } }
