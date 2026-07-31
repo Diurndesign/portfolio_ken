@@ -1,12 +1,6 @@
 // ============================================================
 //  main.scss — point d'entrée
-//  Compile avec :  npm run watch   (prod : npm run build)
 // ============================================================
-@use 'variables';
-@use 'mixins';
-
+@use 'tokens';
 @use 'base';
-@use 'scene';      // studio + choix appareil + allumage téléphone
-@use 'laptop';     // ThinkPad qui s'ouvre + bureau Linux (desktop)
-@use 'phone';      // téléphone + apps (mobile)
-@use 'content';    // contenu partagé (textes, projets, timeline...)
+@use 'hero';

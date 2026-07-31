@@ -2,140 +2,163 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-
-  <title>Ken – Technicien Systèmes &amp; Réseaux | BTS SIO SISR</title>
-  <meta name="description" content="Portfolio de Ken, technicien systèmes et réseaux (BTS SIO option SISR). Un bureau interactif : ouvrez les dossiers pour découvrir son parcours, ses compétences et ses projets.">
-  <meta name="author" content="Ken">
-  <meta property="og:title" content="Ken – Technicien Systèmes & Réseaux">
-  <meta property="og:description" content="Un portfolio interactif façon bureau d'ordinateur. Ouvrez les dossiers pour tout découvrir.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://www.lipatech.fr/">
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ken Lipari — Technicien Systèmes &amp; Réseaux | Lipatech</title>
+  <meta name="description" content="Portfolio de Ken Lipari, technicien systèmes et réseaux (BTS SIO · SISR), Sophia Antipolis.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap">
   <link rel="stylesheet" href="css/main.css">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🖥️</text></svg>">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22%230c1410%22/><circle cx=%2250%22 cy=%2250%22 r=%2216%22 fill=%22none%22 stroke=%22%23b4e01a%22 stroke-width=%228%22/></svg>">
 </head>
 <body>
 
-  <!-- ===================== LA SCÈNE (le bureau) ===================== -->
-  <div class="scene">
+  <section class="hero">
+    <svg class="mb" viewBox="0 0 1000 680" role="img" aria-label="Carte mère — Ken Lipari, technicien systèmes et réseaux">
 
-    <!-- ---------- DESKTOP : un ThinkPad qui s'ouvre ---------- -->
-    <div class="device device--desktop">
-      <div class="stage" id="stage">
+      <defs>
+        <linearGradient id="pcbSheen" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#ffffff" stop-opacity=".05"/>
+          <stop offset=".45" stop-color="#ffffff" stop-opacity="0"/>
+        </linearGradient>
+        <linearGradient id="cpuMetal" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#2c3640"/>
+          <stop offset=".5" stop-color="#1a222a"/>
+          <stop offset="1" stop-color="#0f151b"/>
+        </linearGradient>
+        <pattern id="pins" width="13" height="13" patternUnits="userSpaceOnUse">
+          <circle cx="6.5" cy="6.5" r="2" fill="#2a343f"/>
+        </pattern>
+        <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+          <feGaussianBlur stdDeviation="2.6" result="b"/>
+          <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
 
-        <!-- Nom de marque en grand (intro) -->
-        <h1 class="wordmark" data-brand-big>LIPATECH</h1>
+      <!-- ===== PCB ===== -->
+      <rect class="pcb" x="20" y="20" width="960" height="640" rx="22"/>
+      <rect class="pcb-sheen" x="20" y="20" width="960" height="640" rx="22"/>
 
-        <!-- Le portable -->
-        <div class="laptop" id="laptop">
-          <!-- L'écran (couvercle qui se lève) -->
-          <div class="laptop__lid">
-            <!-- Face intérieure : l'écran + l'OS -->
-            <div class="laptop__screen">
-              <span class="laptop__webcam" aria-hidden="true"></span>
+      <!-- trous de montage -->
+      <g>
+        <circle class="hole-ring" cx="66" cy="66" r="20"/><circle class="hole" cx="66" cy="66" r="12"/>
+        <circle class="hole-ring" cx="934" cy="66" r="20"/><circle class="hole" cx="934" cy="66" r="12"/>
+        <circle class="hole-ring" cx="66" cy="614" r="20"/><circle class="hole" cx="66" cy="614" r="12"/>
+        <circle class="hole-ring" cx="934" cy="614" r="20"/><circle class="hole" cx="934" cy="614" r="12"/>
+      </g>
 
-              <div class="os" id="os">
-                <!-- Barre supérieure (style GNOME) -->
-                <div class="topbar">
-                  <button class="topbar__activities" type="button">Activités</button>
-                  <div class="topbar__clock">
-                    <span data-day></span> <span data-clock>--:--</span>
-                  </div>
-                  <div class="topbar__status" aria-hidden="true">
-                    <span class="ico-net"></span>
-                    <span class="ico-vol"></span>
-                    <span class="ico-bat"></span>
-                  </div>
-                </div>
+      <!-- ===== PISTES (cuivre / lime) ===== -->
+      <g>
+        <!-- bus CPU -> RAM -->
+        <path class="trace" d="M400 190 H688"/>
+        <path class="trace" d="M400 220 H688"/>
+        <path class="trace trace--live" d="M400 250 H688"/>
+        <path class="trace" d="M400 280 H688"/>
+        <!-- CPU -> chipset -->
+        <path class="trace" d="M250 400 V440"/>
+        <path class="trace trace--live" d="M300 400 V440"/>
+        <path class="trace" d="M350 400 V440"/>
+        <!-- chipset -> PCIe -->
+        <path class="trace" d="M430 470 H392 V465"/>
+        <path class="trace" d="M430 500 H360 V512"/>
+        <!-- ATX -> chipset -->
+        <path class="trace trace--live" d="M876 476 H600"/>
+        <!-- CPU -> I/O -->
+        <path class="trace trace--dim" d="M300 178 V128"/>
+        <path class="trace trace--dim" d="M340 178 V128 H470"/>
+        <!-- vias -->
+        <circle class="via" cx="400" cy="190" r="4"/><circle class="via" cx="688" cy="190" r="4"/>
+        <circle class="via" cx="400" cy="250" r="4"/><circle class="via" cx="688" cy="250" r="4"/>
+        <circle class="via via--dim" cx="400" cy="220" r="4"/><circle class="via via--dim" cx="400" cy="280" r="4"/>
+        <circle class="via" cx="300" cy="440" r="4"/>
+        <circle class="via" cx="600" cy="476" r="4"/>
+      </g>
 
-                <!-- Dossiers sur le bureau (générés par le JS) -->
-                <ul class="desktop-icons" id="desktop-icons" aria-label="Dossiers"></ul>
+      <!-- impulsions de données -->
+      <circle class="pulse" r="4"><animateMotion dur="2.6s" repeatCount="indefinite" path="M400 250 H688"/></circle>
+      <circle class="pulse" r="4"><animateMotion dur="3.4s" repeatCount="indefinite" path="M876 476 H600"/></circle>
+      <circle class="pulse" r="3.5"><animateMotion dur="2s" repeatCount="indefinite" path="M300 400 V440"/></circle>
 
-                <p class="desktop-hint" id="desktop-hint">Double-cliquez sur un dossier — ou utilisez le dock</p>
+      <!-- ===== VRM : condensateurs ===== -->
+      <g>
+        <circle class="cap" cx="180" cy="120" r="15"/><path class="cap-top" d="M172 120 H188 M180 112 V128"/>
+        <circle class="cap" cx="220" cy="120" r="15"/><path class="cap-top" d="M212 120 H228 M220 112 V128"/>
+        <circle class="cap" cx="260" cy="120" r="15"/><path class="cap-top" d="M252 120 H268 M260 112 V128"/>
+        <circle class="cap" cx="300" cy="120" r="15"/><path class="cap-top" d="M292 120 H308 M300 112 V128"/>
+        <circle class="cap" cx="340" cy="120" r="15"/><path class="cap-top" d="M332 120 H348 M340 112 V128"/>
+        <text class="silk silk--label" x="150" y="90">VRM</text>
+      </g>
 
-                <!-- Fenêtres -->
-                <div class="windows" id="windows"></div>
+      <!-- ===== CPU + socket ===== -->
+      <g>
+        <rect class="comp-2" x="150" y="150" width="250" height="250" rx="12"/>
+        <rect x="164" y="164" width="222" height="222" fill="url(#pins)"/>
+        <rect class="cpu-face" x="182" y="182" width="186" height="186" rx="6"/>
+        <path class="cpu-mark" d="M196 210 V196 H210"/>
+        <text class="silk" x="275" y="270" text-anchor="middle" font-size="26" fill="#c7e08a" opacity="0.9" font-weight="700">KL</text>
+        <text class="silk silk--label" x="275" y="298" text-anchor="middle">LIPATECH · CPU</text>
+        <text class="silk silk--label" x="150" y="145">SOCKET</text>
+      </g>
 
-                <!-- Dock (style Ubuntu) généré par le JS -->
-                <ul class="dock" id="dock" aria-label="Dock"></ul>
-              </div>
+      <!-- ===== RAM (4 slots) ===== -->
+      <g>
+        <text class="silk silk--label" x="706" y="120">DDR · RAM</text>
+        <g>
+          <rect class="slot" x="706" y="130" width="28" height="280" rx="4"/><rect class="slot-lip--lime" x="706" y="130" width="28" height="8" rx="4"/><rect x="706" y="300" width="28" height="6" fill="#05070a"/>
+          <rect class="slot" x="748" y="130" width="28" height="280" rx="4"/><rect class="slot-lip--lime" x="748" y="130" width="28" height="8" rx="4"/><rect x="748" y="300" width="28" height="6" fill="#05070a"/>
+          <rect class="slot" x="790" y="130" width="28" height="280" rx="4"/><rect class="slot-lip--lime" x="790" y="130" width="28" height="8" rx="4"/><rect x="790" y="300" width="28" height="6" fill="#05070a"/>
+          <rect class="slot" x="832" y="130" width="28" height="280" rx="4"/><rect class="slot-lip--lime" x="832" y="130" width="28" height="8" rx="4"/><rect x="832" y="300" width="28" height="6" fill="#05070a"/>
+        </g>
+      </g>
 
-              <div class="power-on" aria-hidden="true"></div>
-              <!-- Capot fermé (façon ThinkPad) : se lève à l'ouverture -->
-              <div class="screen-off" aria-hidden="true">
-                <div class="tp-logo">ThinkPad<i class="tp-led"></i></div>
-              </div>
-            </div>
-          </div>
+      <!-- ===== Chipset + dissipateur ===== -->
+      <g>
+        <text class="silk silk--label" x="430" y="432">CHIPSET</text>
+        <rect class="comp" x="430" y="440" width="170" height="150" rx="8"/>
+        <path class="fin" d="M446 456 H584 M446 472 H584 M446 488 H584 M446 504 H584 M446 520 H584 M446 536 H584 M446 552 H584 M446 568 H584"/>
+      </g>
 
-          <!-- La base : clavier + TrackPoint -->
-          <div class="laptop__base" aria-hidden="true">
-            <div class="laptop__hinge"></div>
-            <div class="keyboard">
-              <span class="trackpoint"></span>
-            </div>
-            <div class="trackpad"></div>
-          </div>
-        </div>
+      <!-- ===== PCIe (2 slots) ===== -->
+      <g>
+        <text class="silk silk--label" x="120" y="443">PCIe</text>
+        <rect class="slot" x="120" y="450" width="270" height="26" rx="4"/><rect class="slot-lip--lime" x="120" y="450" width="6" height="26"/>
+        <rect class="slot" x="120" y="495" width="220" height="26" rx="4"/><rect class="slot-lip--lime" x="120" y="495" width="6" height="26"/>
+      </g>
 
-        <!-- Bouton d'ouverture -->
-        <button class="open-btn" id="open-btn" type="button">
-          <span class="open-btn__chevron" aria-hidden="true"></span>
-          Ouvrir
-        </button>
+      <!-- ===== I/O ===== -->
+      <g>
+        <text class="silk silk--label" x="430" y="66">I/O · USB / RJ45</text>
+        <rect class="comp-2" x="430" y="74" width="180" height="50" rx="6"/>
+        <rect class="comp" x="440" y="84" width="46" height="30" rx="3"/>
+        <rect class="comp" x="494" y="84" width="46" height="30" rx="3"/>
+        <rect class="comp" x="548" y="84" width="52" height="30" rx="3"/>
+      </g>
 
-      </div>
-    </div>
+      <!-- ===== ATX 24-pin ===== -->
+      <g>
+        <text class="silk silk--label" x="852" y="452">ATX</text>
+        <rect class="comp-2" x="852" y="458" width="44" height="150" rx="6"/>
+        <g fill="#05070a">
+          <rect x="860" y="468" width="12" height="14" rx="2"/><rect x="876" y="468" width="12" height="14" rx="2"/>
+          <rect x="860" y="488" width="12" height="14" rx="2"/><rect x="876" y="488" width="12" height="14" rx="2"/>
+          <rect x="860" y="508" width="12" height="14" rx="2"/><rect x="876" y="508" width="12" height="14" rx="2"/>
+          <rect x="860" y="528" width="12" height="14" rx="2"/><rect x="876" y="528" width="12" height="14" rx="2"/>
+          <rect x="860" y="548" width="12" height="14" rx="2"/><rect x="876" y="548" width="12" height="14" rx="2"/>
+          <rect x="860" y="568" width="12" height="14" rx="2"/><rect x="876" y="568" width="12" height="14" rx="2"/>
+        </g>
+      </g>
 
-    <!-- ---------- MOBILE : un téléphone posé sur le bureau ---------- -->
-    <div class="device device--phone">
-      <div class="phone">
-        <div class="phone__screen">
-          <div class="phoneos" id="phoneos">
+      <!-- ===== SÉRIGRAPHIE (identité) ===== -->
+      <text class="silk silk--brand" x="60" y="58" font-size="24">LIPATECH</text>
+      <text class="silk silk--label" x="62" y="76">MAINBOARD · REV 2026</text>
 
-            <!-- Barre d'état -->
-            <div class="statusbar">
-              <span class="statusbar__time" data-clock>--:--</span>
-              <span class="statusbar__icons">📶 🔋</span>
-            </div>
+      <text class="silk silk--big" x="60" y="628">KEN LIPARI</text>
+      <text class="silk silk--label" x="60" y="646">TECHNICIEN SYSTÈMES &amp; RÉSEAUX · BTS SIO · SISR</text>
+      <text class="silk silk--label" x="940" y="646" text-anchor="end">SOPHIA ANTIPOLIS · PACA</text>
 
-            <!-- Écran d'accueil : nom + grille d'apps (générée par le JS) -->
-            <div class="homescreen" id="homescreen">
-              <header class="phone-hero">
-                <div class="phone-hero__avatar" data-initial></div>
-                <h1 data-name></h1>
-                <p data-role></p>
-              </header>
-              <ul class="apps" id="apps" aria-label="Applications"></ul>
-              <p class="phone-hint">Touchez une app pour en savoir plus</p>
-            </div>
+    </svg>
+  </section>
 
-            <!-- Vue d'une app ouverte -->
-            <div class="app-view" id="app-view" hidden>
-              <header class="app-view__bar">
-                <button class="app-view__back" id="app-back" aria-label="Retour">‹ Accueil</button>
-                <span class="app-view__title" id="app-title"></span>
-              </header>
-              <div class="app-view__body" id="app-body"></div>
-            </div>
-
-          </div>
-        </div>
-        <span class="phone__island" aria-hidden="true"></span>
-        <span class="phone__home" aria-hidden="true"></span>
-        <span class="phone__btn phone__btn--power" aria-hidden="true"></span>
-        <span class="phone__btn phone__btn--vup" aria-hidden="true"></span>
-        <span class="phone__btn phone__btn--vdn" aria-hidden="true"></span>
-      </div>
-    </div>
-
-  </div><!-- /.scene -->
-
-  <script src="js/data.js" defer></script>
   <script src="js/main.js" defer></script>
 </body>
 </html>

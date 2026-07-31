@@ -1,0 +1,36 @@
+// ============================================================
+//  Tokens — change une valeur ici, tout suit.
+// ============================================================
+
+// Fonds
+$bg:      #070a08;      // near-black légèrement vert
+$bg-2:    #0a0f0c;
+
+// PCB (la carte mère)
+$pcb:       #0c1410;    // vernis de la carte (dark green-black)
+$pcb-2:     #0f1a13;
+$pcb-edge:  #1e2c22;
+$silk:      #9fbf7a;    // sérigraphie (texte imprimé pâle vert)
+
+// Cuivre / circuits (signature Lipatech)
+$lime:      #b4e01a;
+$lime-2:    #d0f24a;
+$copper:    rgba(180, 224, 26, 0.55);   // pistes
+$copper-dim:rgba(180, 224, 26, 0.22);
+
+// Composants
+$metal:     #1a2129;
+$metal-2:   #263039;
+$metal-line:#33414d;
+$slot:      #10171c;
+
+// Texte
+$text:      #e7f0e6;
+$muted:     #8ba098;
+
+// Typo
+$font-head: 'Oswald', 'Inter', sans-serif;
+$font-body: 'Inter', system-ui, sans-serif;
+$font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+$maxw: 1180px;
