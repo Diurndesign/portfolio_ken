@@ -1,0 +1,37 @@
+// ============================================================
+//  Variables — couleurs, typographie, espacements, breakpoints
+//  Change une valeur ici et tout le site suit.
+// ============================================================
+
+// --- Couleurs (thème sombre "tech / infra") ---
+$color-bg:          #0b1120;   // fond principal
+$color-bg-alt:      #0f1729;   // sections alternées
+$color-surface:     #151f36;   // cartes
+$color-surface-2:   #1c2947;   // cartes au survol
+$color-border:      #26324f;
+
+$color-text:        #e6ecf5;   // texte principal
+$color-text-muted:  #93a1bf;   // texte secondaire
+
+$color-accent:      #38bdf8;   // cyan (accent principal)
+$color-accent-2:    #6366f1;   // indigo (dégradés)
+$color-accent-soft: rgba(56, 189, 248, 0.12);
+
+// --- Typographie ---
+$font-body:    'Inter', system-ui, -apple-system, sans-serif;
+$font-heading: 'Space Grotesk', 'Inter', sans-serif;
+
+// --- Rayons & ombres ---
+$radius:    14px;
+$radius-sm: 8px;
+$shadow:    0 20px 40px -20px rgba(0, 0, 0, 0.6);
+$shadow-accent: 0 12px 40px -12px rgba(56, 189, 248, 0.35);
+
+// --- Layout ---
+$container:  1120px;
+$gutter:     1.5rem;
+
+// --- Points de rupture (responsive) ---
+$bp-sm: 640px;
+$bp-md: 860px;
+$bp-lg: 1024px;
