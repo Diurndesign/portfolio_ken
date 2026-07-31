@@ -9,9 +9,7 @@ body {
   margin: 0;
   font-family: $font-body;
   color: $text;
-  background:
-    radial-gradient(80% 60% at 50% 30%, rgba($lime, 0.05), transparent 60%),
-    linear-gradient(180deg, $bg-2, $bg);
+  background: $page;               // fond blanc
   -webkit-font-smoothing: antialiased;
   min-height: 100vh;
 }
