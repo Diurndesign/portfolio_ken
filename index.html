@@ -23,49 +23,72 @@
   <!-- ===================== LA SCÈNE (le bureau) ===================== -->
   <div class="scene">
 
-    <!-- ---------- DESKTOP : un ordinateur allumé ---------- -->
+    <!-- ---------- DESKTOP : un ThinkPad qui s'ouvre ---------- -->
     <div class="device device--desktop">
-      <div class="monitor">
-        <span class="monitor__cam" aria-hidden="true"></span>
-        <div class="monitor__screen">
+      <div class="stage" id="stage">
 
-          <!-- Le système d'exploitation "KenOS" -->
-          <div class="os" id="os">
+        <!-- Nom de marque en grand (intro) -->
+        <h1 class="wordmark" data-brand-big>LIPATECH</h1>
 
-            <!-- Barre de menu -->
-            <div class="menubar">
-              <div class="menubar__left">
-                <span class="menubar__logo"></span>
-                <strong class="menubar__brand" data-brand></strong>
-                <span class="menubar__item">Fichier</span>
-                <span class="menubar__item">Aperçu</span>
-                <span class="menubar__item">Aide</span>
+        <!-- Le portable -->
+        <div class="laptop" id="laptop">
+          <!-- L'écran (couvercle qui se lève) -->
+          <div class="laptop__lid">
+            <!-- Face intérieure : l'écran + l'OS -->
+            <div class="laptop__screen">
+              <span class="laptop__webcam" aria-hidden="true"></span>
+
+              <div class="os" id="os">
+                <!-- Barre supérieure (style GNOME) -->
+                <div class="topbar">
+                  <button class="topbar__activities" type="button">Activités</button>
+                  <div class="topbar__clock">
+                    <span data-day></span> <span data-clock>--:--</span>
+                  </div>
+                  <div class="topbar__status" aria-hidden="true">
+                    <span class="ico-net"></span>
+                    <span class="ico-vol"></span>
+                    <span class="ico-bat"></span>
+                  </div>
+                </div>
+
+                <!-- Dossiers sur le bureau (générés par le JS) -->
+                <ul class="desktop-icons" id="desktop-icons" aria-label="Dossiers"></ul>
+
+                <p class="desktop-hint" id="desktop-hint">Double-cliquez sur un dossier — ou utilisez le dock</p>
+
+                <!-- Fenêtres -->
+                <div class="windows" id="windows"></div>
+
+                <!-- Dock (style Ubuntu) généré par le JS -->
+                <ul class="dock" id="dock" aria-label="Dock"></ul>
               </div>
-              <div class="menubar__right">
-                <span class="menubar__net">📶</span>
-                <span class="menubar__clock" data-clock>--:--</span>
+
+              <div class="power-on" aria-hidden="true"></div>
+              <!-- Capot fermé (façon ThinkPad) : se lève à l'ouverture -->
+              <div class="screen-off" aria-hidden="true">
+                <div class="tp-logo">ThinkPad<i class="tp-led"></i></div>
               </div>
             </div>
+          </div>
 
-            <!-- Bureau : les dossiers (générés par le JS) -->
-            <ul class="desktop-icons" id="desktop-icons" aria-label="Dossiers du bureau"></ul>
-
-            <!-- Astuce -->
-            <p class="desktop-hint" id="desktop-hint">Double-cliquez sur un dossier pour l'ouvrir</p>
-
-            <!-- Zone où s'ouvrent les fenêtres -->
-            <div class="windows" id="windows"></div>
-
-          </div><!-- /.os -->
-
-          <!-- Effet allumage de l'écran -->
-          <div class="power-on" aria-hidden="true"></div>
+          <!-- La base : clavier + TrackPoint -->
+          <div class="laptop__base" aria-hidden="true">
+            <div class="laptop__hinge"></div>
+            <div class="keyboard">
+              <span class="trackpoint"></span>
+            </div>
+            <div class="trackpad"></div>
+          </div>
         </div>
 
-        <div class="monitor__brand" aria-hidden="true"></div>
+        <!-- Bouton d'ouverture -->
+        <button class="open-btn" id="open-btn" type="button">
+          <span class="open-btn__chevron" aria-hidden="true"></span>
+          Ouvrir
+        </button>
+
       </div>
-      <div class="monitor__neck" aria-hidden="true"></div>
-      <div class="monitor__foot" aria-hidden="true"></div>
     </div>
 
     <!-- ---------- MOBILE : un téléphone posé sur le bureau ---------- -->

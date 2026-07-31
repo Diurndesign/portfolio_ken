@@ -1,16 +1,18 @@
-# Portfolio de Ken — « Le Bureau » 🖥️
+# Portfolio de Ken — ThinkPad / Linux 💻
 
 Portfolio interactif de Ken (technicien systèmes & réseaux, BTS SIO SISR),
-présenté comme un **bureau d'ordinateur**. Jeu de mots assumé : le *bureau*,
-c'est le meuble **et** le *desktop*.
+présenté comme un **ordinateur portable qui s'ouvre**.
 
-- **Sur grand écran** → un ordinateur allumé posé sur un bureau. On **double-clique
-  sur les dossiers** pour ouvrir des fenêtres (déplaçables, empilables) avec les
-  infos de Ken.
-- **Sur mobile** → un **smartphone posé sur le bureau**. On **touche les apps**
-  pour ouvrir chaque rubrique en plein écran.
+- **Sur grand écran** → un **ThinkPad fermé** avec le nom **LIPATECH** en grand
+  et un bouton **« Ouvrir »**. Au clic : LIPATECH devient flou, **l'écran se lève
+  et s'allume**, révélant un **bureau Linux** (barre GNOME + dock Ubuntu). On ouvre
+  les **dossiers** (double-clic) ou les icônes du **dock** → des **fenêtres**
+  déplaçables et empilables avec les infos de Ken.
+- **Sur mobile** → un **smartphone** réaliste. On **touche les apps** pour ouvrir
+  chaque rubrique en plein écran.
 
 Construit en **HTML + SCSS (Sass) + JavaScript vanilla**, sans framework.
+Rendu photoréaliste 100 % CSS/SVG (matières, reflets, grain, ombres).
 
 ## ✨ Le principe malin : une seule source de contenu
 
@@ -32,10 +34,10 @@ portfolio_ken/
 └── scss/               → sources de style (à éditer)
     ├── main.scss       → point d'entrée
     ├── _variables.scss → couleurs, polices, breakpoint → thème ici
-    ├── _mixins.scss    → helpers (media queries desktop/mobile)
+    ├── _mixins.scss    → helpers (media queries, grain photo)
     ├── _base.scss      → reset global
-    ├── _scene.scss     → la pièce, le bureau, l'allumage de l'écran
-    ├── _monitor.scss   → l'écran d'ordinateur + les fenêtres (desktop)
+    ├── _scene.scss     → le studio + choix appareil + allumage téléphone
+    ├── _laptop.scss    → le ThinkPad 3D + intro + bureau Linux (desktop)
     ├── _phone.scss     → le téléphone + les apps (mobile)
     └── _content.scss   → le contenu (textes, projets, timeline, formulaire)
 ```

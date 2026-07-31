@@ -6,7 +6,7 @@
 @use 'mixins';
 
 @use 'base';
-@use 'scene';      // la pièce + le bureau + allumage
-@use 'monitor';    // écran d'ordinateur + fenêtres (desktop)
+@use 'scene';      // studio + choix appareil + allumage téléphone
+@use 'laptop';     // ThinkPad qui s'ouvre + bureau Linux (desktop)
 @use 'phone';      // téléphone + apps (mobile)
 @use 'content';    // contenu partagé (textes, projets, timeline...)

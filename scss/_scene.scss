@@ -58,25 +58,11 @@
 }
 @include phone { .device--phone { display: block; } }
 
-// --- Allumage de l'écran (effet "power on") ---
-.power-on {
-  position: absolute;
-  inset: 0;
-  background: #000;
-  z-index: 950;
-  pointer-events: none;
-  opacity: 0;
-}
+// --- Allumage du téléphone au chargement (le desktop s'allume à l'ouverture) ---
+body.is-booting .phoneos { opacity: 0; }
+body.is-on .phoneos { animation: screen-in 0.55s ease both; }
 
-body.is-booting {
-  .os, .phoneos { opacity: 0; }
-  .power-on { opacity: 1; }
-}
-body.is-on {
-  .os, .phoneos { animation: screen-in 0.55s ease both; }
-  .power-on { animation: power-flash 0.55s ease forwards; }
-}
-
+// Keyframes partagées (utilisées aussi par l'écran du portable)
 @keyframes power-flash {
   0%   { opacity: 1; background: #000; }
   28%  { opacity: 0.85; background: #dff0ff; }
