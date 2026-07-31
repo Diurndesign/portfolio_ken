@@ -1,66 +1,74 @@
-# Portfolio de Ken — Technicien Systèmes & Réseaux
+# Portfolio de Ken — « Le Bureau » 🖥️
 
-Site vitrine / portfolio personnel (one-page) construit en **HTML + SCSS (Sass) + JavaScript vanilla**.
-Aucun framework, aucune dépendance à part le compilateur Sass. Le code est volontairement
-simple et commenté pour être facile à relire et à modifier.
+Portfolio interactif de Ken (technicien systèmes & réseaux, BTS SIO SISR),
+présenté comme un **bureau d'ordinateur**. Jeu de mots assumé : le *bureau*,
+c'est le meuble **et** le *desktop*.
 
-## 🗂️ Structure du projet
+- **Sur grand écran** → un ordinateur allumé posé sur un bureau. On **double-clique
+  sur les dossiers** pour ouvrir des fenêtres (déplaçables, empilables) avec les
+  infos de Ken.
+- **Sur mobile** → un **smartphone posé sur le bureau**. On **touche les apps**
+  pour ouvrir chaque rubrique en plein écran.
+
+Construit en **HTML + SCSS (Sass) + JavaScript vanilla**, sans framework.
+
+## ✨ Le principe malin : une seule source de contenu
+
+Tout le texte de Ken est dans **un seul fichier** : `js/data.js`.
+Le desktop (fenêtres) et le mobile (apps) affichent ces mêmes données —
+**rien à écrire en double**. Tu modifies une rubrique une fois, elle change
+partout.
+
+## 🗂️ Structure
 
 ```
 portfolio_ken/
-├── index.html          → toute la structure de la page (une seule page)
+├── index.html          → la "scène" (l'ordinateur + le téléphone)
 ├── css/
-│   └── main.css        → CSS compilé (généré, ne pas éditer à la main)
-├── scss/               → sources de style (à éditer)
-│   ├── main.scss       → point d'entrée (importe les partials)
-│   ├── _variables.scss → couleurs, polices, tailles → change le thème ici
-│   ├── _mixins.scss    → helpers réutilisables (media queries, carte…)
-│   ├── _base.scss      → reset + typographie globale
-│   ├── _layout.scss    → header, navigation, footer, sections
-│   ├── _components.scss → boutons, tags, timeline
-│   └── _sections.scss  → styles propres à chaque section
+│   └── main.css        → CSS compilé (généré — ne pas éditer à la main)
 ├── js/
-│   └── main.js         → menu mobile, animations au scroll, formulaire
-└── assets/             → images, CV PDF, favicon…
+│   ├── data.js         → ⭐ TOUT LE CONTENU DE KEN (à remplir)
+│   └── main.js         → le "système" : dossiers, fenêtres, apps, horloge…
+└── scss/               → sources de style (à éditer)
+    ├── main.scss       → point d'entrée
+    ├── _variables.scss → couleurs, polices, breakpoint → thème ici
+    ├── _mixins.scss    → helpers (media queries desktop/mobile)
+    ├── _base.scss      → reset global
+    ├── _scene.scss     → la pièce, le bureau, l'allumage de l'écran
+    ├── _monitor.scss   → l'écran d'ordinateur + les fenêtres (desktop)
+    ├── _phone.scss     → le téléphone + les apps (mobile)
+    └── _content.scss   → le contenu (textes, projets, timeline, formulaire)
 ```
 
 ## 🚀 Démarrer
 
-Il faut [Node.js](https://nodejs.org/) installé. Ensuite :
+Il faut [Node.js](https://nodejs.org/). Ensuite :
 
 ```bash
-npm install        # installe Sass (une seule fois)
+npm install        # installe Sass (une fois)
 npm run watch      # compile le SCSS en continu pendant que tu travailles
+npm run serve      # petit serveur local sur http://localhost:3000
 ```
 
-Ouvre ensuite `index.html` dans ton navigateur (double-clic), ou lance un petit serveur local :
+Version minifiée pour la mise en ligne :
 
 ```bash
-npm run serve      # démarre un serveur sur http://localhost:3000
-```
-
-Pour générer la version **minifiée** (production) :
-
-```bash
-npm run build      # produit un css/main.css compressé
+npm run build
 ```
 
 ## ✏️ Personnaliser
 
-Cherche les commentaires `<!-- TODO -->` dans `index.html` et `TODO` dans `js/main.js` :
-ce sont tous les endroits à remplir avec les vraies infos de Ken.
-
-- **Textes / projets / parcours** → `index.html`
-- **Couleurs & polices** → `scss/_variables.scss`
-- **CV** → dépose le PDF dans `assets/cv-ken.pdf`
-- **Formulaire de contact** → à brancher sur un service (Formspree, Netlify Forms,
-  EmailJS…) dans `js/main.js`. Pour l'instant il affiche juste un message de démo.
-- **Liens** → email, LinkedIn, GitHub dans la section Contact.
+- **Textes / projets / parcours / compétences** → `js/data.js` (cherche les `TODO`).
+- **Coordonnées** (email, LinkedIn, GitHub) → objet `PROFILE` dans `js/data.js`.
+- **CV** → dépose le PDF dans `assets/cv-ken.pdf`.
+- **Couleurs, polices, breakpoint desktop/mobile** → `scss/_variables.scss`.
+- **Ajouter/enlever un dossier-app** → ajoute une entrée dans le tableau `SECTIONS`
+  de `js/data.js` : le dossier (desktop) ET l'app (mobile) apparaissent tout seuls.
+- **Formulaire de contact** → à brancher sur un service (Formspree / Netlify Forms /
+  EmailJS) dans `js/main.js`. Pour l'instant : message de démo.
 
 ## 🌐 Mise en ligne
 
-Le site est 100 % statique : il s'héberge partout (GitHub Pages, Netlify, Vercel,
-ou l'hébergement actuel de `lipatech.fr`). Il suffit d'envoyer `index.html`,
-le dossier `css/`, `js/` et `assets/`.
-
-> Astuce : lance `npm run build` avant de mettre en ligne pour un CSS plus léger.
+100 % statique : s'héberge partout (GitHub Pages, Netlify, Vercel, ou l'hébergement
+actuel de `lipatech.fr`). Envoie `index.html`, `css/`, `js/` et `assets/`.
+Lance `npm run build` avant pour un CSS plus léger.

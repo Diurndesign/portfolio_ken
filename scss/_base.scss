@@ -1,62 +1,32 @@
 // ============================================================
-//  Base — reset léger, typographie globale, helpers
+//  Base — reset léger + réglages globaux
 // ============================================================
-@use 'sass:color';
 @use 'variables' as *;
-@use 'mixins' as *;
 
 *, *::before, *::after { box-sizing: border-box; }
 
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+html, body { height: 100%; }
 
 body {
   margin: 0;
   font-family: $font-body;
-  font-size: 1rem;
-  line-height: 1.65;
-  color: $color-text;
-  background: $color-bg;
+  color: #e6ecf5;
+  background: #0a0e17;
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
+  overflow: hidden;                 // la "scène" occupe tout l'écran
 }
 
-h1, h2, h3, h4 {
-  font-family: $font-heading;
-  line-height: 1.15;
-  margin: 0 0 0.5em;
-  font-weight: 600;
-}
-
-p { margin: 0 0 1rem; }
-
-a { color: $color-accent; text-decoration: none; @include transition(color); }
-a:hover { color: color.adjust($color-accent, $lightness: 10%); }
-
+button { font: inherit; cursor: pointer; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
 img { max-width: 100%; display: block; }
 
-ul { margin: 0; padding: 0; list-style: none; }
-
-// --- Helpers ---
-.container {
-  width: 100%;
-  max-width: $container;
-  margin-inline: auto;
-  padding-inline: $gutter;
-}
-
-.text-accent { @include gradient-text; }
-.muted { color: $color-text-muted; font-weight: 400; }
-
-// Accessibilité : focus visible net
 :focus-visible {
-  outline: 2px solid $color-accent;
-  outline-offset: 3px;
+  outline: 2px solid $os-accent;
+  outline-offset: 2px;
   border-radius: 4px;
 }
 
-// Respecte "réduire les animations"
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;

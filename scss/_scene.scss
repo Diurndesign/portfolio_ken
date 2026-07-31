@@ -1,0 +1,79 @@
+// ============================================================
+//  Scène — la pièce + le bureau, et le choix ordinateur/téléphone
+// ============================================================
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.scene {
+  position: relative;
+  height: 100vh;
+  height: 100dvh;
+  display: grid;
+  place-items: center;
+  padding: 2vmin;
+  overflow: hidden;
+
+  // Mur de la pièce
+  background:
+    radial-gradient(120% 80% at 50% -10%, rgba($os-accent, 0.10), transparent 60%),
+    linear-gradient(180deg, $room-top 0%, $room-bottom 62%);
+
+  // Le plan du "bureau" (surface en bois) en bas
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 34%;
+    background:
+      linear-gradient(180deg, rgba($desk-1, 0.85), $desk-2),
+      repeating-linear-gradient(90deg, rgba(255,255,255,0.02) 0 2px, transparent 2px 5px);
+    box-shadow: 0 -1px 0 rgba(255,255,255,0.05), 0 -30px 60px -20px rgba(0,0,0,0.7);
+    z-index: 0;
+  }
+}
+
+// --- Choix de l'appareil selon la largeur ---
+.device { position: relative; z-index: 1; }
+
+.device--desktop { display: none; }
+.device--phone   { display: none; }
+
+@include desktop {
+  .device--desktop {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+@include phone { .device--phone { display: block; } }
+
+// --- Allumage de l'écran (effet "power on") ---
+.power-on {
+  position: absolute;
+  inset: 0;
+  background: #000;
+  z-index: 999;
+  pointer-events: none;
+  opacity: 0;
+}
+
+body.is-booting {
+  .os, .phoneos { opacity: 0; }
+  .power-on { opacity: 1; }
+}
+
+body.is-on {
+  .os, .phoneos { animation: screen-in 0.5s ease both; }
+  .power-on { animation: power-flash 0.5s ease forwards; }
+}
+
+@keyframes power-flash {
+  0%   { opacity: 1; background: #000; }
+  30%  { opacity: 0.9; background: #cfeaff; }   // flash de démarrage
+  100% { opacity: 0; }
+}
+
+@keyframes screen-in {
+  0%   { opacity: 0; transform: scale(1.01); filter: brightness(2); }
+  100% { opacity: 1; transform: none; filter: none; }
+}

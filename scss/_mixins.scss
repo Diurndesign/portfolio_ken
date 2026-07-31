@@ -3,45 +3,12 @@
 // ============================================================
 @use 'variables' as *;
 
-// Media query "à partir de"
-@mixin from($bp) {
-  @media (min-width: $bp) { @content; }
+// "à partir de" ce breakpoint (écran large → ordinateur)
+@mixin desktop {
+  @media (min-width: $bp-phone) { @content; }
 }
 
-// Media query "jusqu'à"
-@mixin until($bp) {
-  @media (max-width: $bp - 1px) { @content; }
-}
-
-// Dégradé de texte (accent)
-@mixin gradient-text {
-  background: linear-gradient(120deg, $color-accent, $color-accent-2);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-// Transition douce par défaut
-@mixin transition($props...) {
-  transition-property: $props;
-  transition-duration: 0.25s;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-// Carte de base (partagée entre composants et sections).
-// On utilise un mixin plutôt qu'un placeholder %card car les
-// placeholders ne sont pas partagés entre modules @use.
-@mixin card {
-  background: $color-surface;
-  border: 1px solid $color-border;
-  border-radius: $radius;
-  padding: 1.5rem;
-  @include transition(transform, border-color, background, box-shadow);
-
-  &:hover {
-    transform: translateY(-4px);
-    border-color: rgba($color-accent, 0.45);
-    background: $color-surface-2;
-    box-shadow: $shadow;
-  }
+// "jusqu'à" ce breakpoint (écran étroit → téléphone)
+@mixin phone {
+  @media (max-width: $bp-phone - 1px) { @content; }
 }

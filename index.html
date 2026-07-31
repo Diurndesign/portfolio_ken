@@ -2,338 +2,113 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
-  <!-- TODO: personnaliser le titre et la description pour le SEO -->
   <title>Ken – Technicien Systèmes &amp; Réseaux | BTS SIO SISR</title>
-  <meta name="description" content="Portfolio de Ken, technicien systèmes et réseaux (BTS SIO option SISR). Administration réseau, infrastructure, virtualisation et supervision.">
+  <meta name="description" content="Portfolio de Ken, technicien systèmes et réseaux (BTS SIO option SISR). Un bureau interactif : ouvrez les dossiers pour découvrir son parcours, ses compétences et ses projets.">
   <meta name="author" content="Ken">
-
-  <!-- Open Graph (partage réseaux sociaux) -->
   <meta property="og:title" content="Ken – Technicien Systèmes & Réseaux">
-  <meta property="og:description" content="Administration réseau, infrastructure, virtualisation et supervision.">
+  <meta property="og:description" content="Un portfolio interactif façon bureau d'ordinateur. Ouvrez les dossiers pour tout découvrir.">
   <meta property="og:type" content="website">
-  <!-- TODO: remplacer par l'URL finale et une vraie image de partage -->
   <meta property="og:url" content="https://www.lipatech.fr/">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap">
-
   <link rel="stylesheet" href="css/main.css">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🖧</text></svg>">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🖥️</text></svg>">
 </head>
 <body>
 
-  <!-- ===================== HEADER / NAV ===================== -->
-  <header class="site-header" id="top">
-    <div class="container header__inner">
-      <a href="#top" class="logo" aria-label="Retour en haut">
-        <span class="logo__mark">&lt;/&gt;</span>
-        <span class="logo__text">Ken<span class="logo__accent">.</span></span>
-      </a>
+  <!-- ===================== LA SCÈNE (le bureau) ===================== -->
+  <div class="scene">
 
-      <nav class="nav" aria-label="Navigation principale">
-        <button class="nav__toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Ouvrir le menu">
-          <span></span><span></span><span></span>
-        </button>
-        <ul class="nav__menu" id="nav-menu">
-          <li><a href="#about">À propos</a></li>
-          <li><a href="#skills">Compétences</a></li>
-          <li><a href="#projects">Projets</a></li>
-          <li><a href="#experience">Parcours</a></li>
-          <li><a href="#contact" class="nav__cta">Contact</a></li>
-        </ul>
-      </nav>
+    <!-- ---------- DESKTOP : un ordinateur allumé ---------- -->
+    <div class="device device--desktop">
+      <div class="monitor">
+        <div class="monitor__screen">
+
+          <!-- Le système d'exploitation "KenOS" -->
+          <div class="os" id="os">
+
+            <!-- Barre de menu -->
+            <div class="menubar">
+              <div class="menubar__left">
+                <span class="menubar__logo"></span>
+                <strong class="menubar__brand" data-brand></strong>
+                <span class="menubar__item">Fichier</span>
+                <span class="menubar__item">Aperçu</span>
+                <span class="menubar__item">Aide</span>
+              </div>
+              <div class="menubar__right">
+                <span class="menubar__net">📶</span>
+                <span class="menubar__clock" data-clock>--:--</span>
+              </div>
+            </div>
+
+            <!-- Bureau : les dossiers (générés par le JS) -->
+            <ul class="desktop-icons" id="desktop-icons" aria-label="Dossiers du bureau"></ul>
+
+            <!-- Astuce -->
+            <p class="desktop-hint" id="desktop-hint">Double-cliquez sur un dossier pour l'ouvrir</p>
+
+            <!-- Zone où s'ouvrent les fenêtres -->
+            <div class="windows" id="windows"></div>
+
+          </div><!-- /.os -->
+
+          <!-- Effet allumage de l'écran -->
+          <div class="power-on" aria-hidden="true"></div>
+        </div>
+
+        <div class="monitor__brand" aria-hidden="true"></div>
+      </div>
+      <div class="monitor__neck" aria-hidden="true"></div>
+      <div class="monitor__foot" aria-hidden="true"></div>
     </div>
-  </header>
 
-  <main>
+    <!-- ---------- MOBILE : un téléphone posé sur le bureau ---------- -->
+    <div class="device device--phone">
+      <div class="phone">
+        <div class="phone__screen">
+          <div class="phoneos" id="phoneos">
 
-    <!-- ===================== HERO ===================== -->
-    <section class="hero" id="hero">
-      <div class="container hero__inner">
-        <p class="hero__eyebrow" data-reveal>Disponible pour de nouvelles opportunités</p>
-        <h1 class="hero__title" data-reveal>
-          Bonjour, moi c'est <span class="text-accent">Ken</span>.<br>
-          Technicien <span class="text-accent">Systèmes &amp; Réseaux</span>.
-        </h1>
-        <p class="hero__lead" data-reveal>
-          Titulaire d'un BTS SIO option SISR, je conçois, administre et sécurise
-          des infrastructures réseau et systèmes. J'aime rendre les réseaux
-          fiables, rapides et sûrs.
-        </p>
-        <div class="hero__actions" data-reveal>
-          <a href="#contact" class="btn btn--primary">Me contacter</a>
-          <!-- TODO: déposer le vrai CV dans assets/cv-ken.pdf -->
-          <a href="assets/cv-ken.pdf" class="btn btn--ghost" download>Télécharger mon CV</a>
-        </div>
-
-        <ul class="hero__stats" data-reveal>
-          <li><strong>BTS SIO</strong><span>Option SISR</span></li>
-          <li><strong>Réseau</strong><span>TCP/IP · VLAN · VPN</span></li>
-          <li><strong>Systèmes</strong><span>Windows Server · Linux</span></li>
-        </ul>
-      </div>
-      <div class="hero__glow" aria-hidden="true"></div>
-    </section>
-
-    <!-- ===================== À PROPOS ===================== -->
-    <section class="section" id="about">
-      <div class="container">
-        <header class="section__head" data-reveal>
-          <span class="section__num">01</span>
-          <h2 class="section__title">À propos</h2>
-        </header>
-        <div class="about">
-          <div class="about__text" data-reveal>
-            <!-- TODO: réécrire avec les vraies infos de Ken -->
-            <p>
-              Passionné d'informatique depuis toujours, je me suis spécialisé dans
-              l'administration des <strong>systèmes et réseaux</strong>. Mon BTS SIO
-              option SISR m'a permis de maîtriser aussi bien la mise en place
-              d'infrastructures que leur sécurisation et leur supervision.
-            </p>
-            <p>
-              Rigoureux et curieux, j'aime diagnostiquer, optimiser et documenter.
-              Que ce soit un serveur Active Directory, un réseau segmenté en VLAN
-              ou une solution de sauvegarde, je cherche toujours la solution la plus
-              fiable et la plus propre.
-            </p>
-            <ul class="about__facts">
-              <li><span>📍</span> <!-- TODO -->France</li>
-              <li><span>🎓</span> BTS SIO – option SISR</li>
-              <li><span>🚗</span> Permis B</li>
-              <li><span>🌐</span> Français · Anglais technique</li>
-            </ul>
-          </div>
-          <aside class="about__card" data-reveal>
-            <h3>Ce que je peux faire pour vous</h3>
-            <ul>
-              <li>Installer et administrer un réseau (local, VLAN, Wi-Fi)</li>
-              <li>Déployer et gérer des serveurs (Windows Server, Linux)</li>
-              <li>Mettre en place la virtualisation et la sauvegarde</li>
-              <li>Superviser et sécuriser une infrastructure</li>
-              <li>Assurer le support et le dépannage utilisateur</li>
-            </ul>
-          </aside>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===================== COMPÉTENCES ===================== -->
-    <section class="section section--alt" id="skills">
-      <div class="container">
-        <header class="section__head" data-reveal>
-          <span class="section__num">02</span>
-          <h2 class="section__title">Compétences</h2>
-        </header>
-
-        <div class="skills">
-          <article class="skill-card" data-reveal>
-            <div class="skill-card__icon">🌐</div>
-            <h3>Réseau</h3>
-            <ul class="tags">
-              <li>TCP/IP</li><li>VLAN</li><li>Routage</li><li>VPN</li>
-              <li>DHCP</li><li>DNS</li><li>Pare-feu</li><li>Cisco</li>
-            </ul>
-          </article>
-
-          <article class="skill-card" data-reveal>
-            <div class="skill-card__icon">🖥️</div>
-            <h3>Systèmes</h3>
-            <ul class="tags">
-              <li>Windows Server</li><li>Active Directory</li><li>GPO</li>
-              <li>Linux (Debian)</li><li>Bash</li><li>PowerShell</li>
-            </ul>
-          </article>
-
-          <article class="skill-card" data-reveal>
-            <div class="skill-card__icon">📦</div>
-            <h3>Virtualisation &amp; Sauvegarde</h3>
-            <ul class="tags">
-              <li>VMware</li><li>Proxmox</li><li>Hyper-V</li>
-              <li>Veeam</li><li>Snapshots</li>
-            </ul>
-          </article>
-
-          <article class="skill-card" data-reveal>
-            <div class="skill-card__icon">📊</div>
-            <h3>Supervision &amp; Gestion</h3>
-            <ul class="tags">
-              <li>Nagios</li><li>Zabbix</li><li>GLPI</li>
-              <li>Wireshark</li><li>Ticketing</li>
-            </ul>
-          </article>
-
-          <article class="skill-card" data-reveal>
-            <div class="skill-card__icon">🔒</div>
-            <h3>Sécurité</h3>
-            <ul class="tags">
-              <li>Segmentation</li><li>VPN IPsec</li><li>Filtrage</li>
-              <li>Sauvegardes</li><li>Bonnes pratiques</li>
-            </ul>
-          </article>
-
-          <article class="skill-card" data-reveal>
-            <div class="skill-card__icon">🛠️</div>
-            <h3>Support &amp; Outils</h3>
-            <ul class="tags">
-              <li>Dépannage</li><li>Assistance</li><li>Documentation</li>
-              <li>Git</li><li>Ansible</li>
-            </ul>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===================== PROJETS ===================== -->
-    <section class="section" id="projects">
-      <div class="container">
-        <header class="section__head" data-reveal>
-          <span class="section__num">03</span>
-          <h2 class="section__title">Projets &amp; réalisations</h2>
-        </header>
-        <p class="section__intro" data-reveal>
-          Quelques projets menés en formation et en stage. <!-- TODO: remplacer par les vrais projets de Ken -->
-        </p>
-
-        <div class="projects">
-          <article class="project" data-reveal>
-            <div class="project__top">
-              <span class="project__badge">Réseau</span>
-              <h3>Mise en place d'un réseau d'entreprise segmenté</h3>
+            <!-- Barre d'état -->
+            <div class="statusbar">
+              <span class="statusbar__time" data-clock>--:--</span>
+              <span class="statusbar__icons">📶 🔋</span>
             </div>
-            <p><strong>Contexte :</strong> réseau d'une PME à structurer et sécuriser.</p>
-            <p><strong>Réalisé :</strong> conception d'un plan d'adressage, création de VLAN (postes, serveurs, invités), routage inter-VLAN et règles de pare-feu.</p>
-            <p><strong>Résultat :</strong> trafic isolé par service et sécurité renforcée.</p>
-            <ul class="tags tags--sm">
-              <li>VLAN</li><li>Routage</li><li>Pare-feu</li><li>Cisco</li>
-            </ul>
-          </article>
 
-          <article class="project" data-reveal>
-            <div class="project__top">
-              <span class="project__badge">Systèmes</span>
-              <h3>Déploiement d'un domaine Active Directory</h3>
+            <!-- Écran d'accueil : nom + grille d'apps (générée par le JS) -->
+            <div class="homescreen" id="homescreen">
+              <header class="phone-hero">
+                <div class="phone-hero__avatar" data-initial></div>
+                <h1 data-name></h1>
+                <p data-role></p>
+              </header>
+              <ul class="apps" id="apps" aria-label="Applications"></ul>
+              <p class="phone-hint">Touchez une app pour en savoir plus</p>
             </div>
-            <p><strong>Contexte :</strong> centraliser la gestion des utilisateurs et des postes.</p>
-            <p><strong>Réalisé :</strong> installation de Windows Server, promotion en contrôleur de domaine, création d'OU, d'utilisateurs et de GPO.</p>
-            <p><strong>Résultat :</strong> authentification centralisée et stratégies appliquées automatiquement.</p>
-            <ul class="tags tags--sm">
-              <li>Windows Server</li><li>Active Directory</li><li>GPO</li>
-            </ul>
-          </article>
 
-          <article class="project" data-reveal>
-            <div class="project__top">
-              <span class="project__badge">Supervision</span>
-              <h3>Supervision d'infrastructure avec Nagios</h3>
+            <!-- Vue d'une app ouverte -->
+            <div class="app-view" id="app-view" hidden>
+              <header class="app-view__bar">
+                <button class="app-view__back" id="app-back" aria-label="Retour">‹ Accueil</button>
+                <span class="app-view__title" id="app-title"></span>
+              </header>
+              <div class="app-view__body" id="app-body"></div>
             </div>
-            <p><strong>Contexte :</strong> anticiper les pannes serveurs et réseau.</p>
-            <p><strong>Réalisé :</strong> installation de Nagios, configuration des hôtes et services surveillés, alertes par mail.</p>
-            <p><strong>Résultat :</strong> détection proactive des incidents et meilleure disponibilité.</p>
-            <ul class="tags tags--sm">
-              <li>Nagios</li><li>Linux</li><li>Monitoring</li>
-            </ul>
-          </article>
 
-          <article class="project" data-reveal>
-            <div class="project__top">
-              <span class="project__badge">Virtualisation</span>
-              <h3>Plateforme virtualisée &amp; sauvegardes</h3>
-            </div>
-            <p><strong>Contexte :</strong> mutualiser les serveurs et sécuriser les données.</p>
-            <p><strong>Réalisé :</strong> mise en place d'un hyperviseur Proxmox, création de VM, planification des sauvegardes et tests de restauration.</p>
-            <p><strong>Résultat :</strong> infrastructure consolidée et données protégées.</p>
-            <ul class="tags tags--sm">
-              <li>Proxmox</li><li>VM</li><li>Sauvegarde</li>
-            </ul>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===================== PARCOURS ===================== -->
-    <section class="section section--alt" id="experience">
-      <div class="container">
-        <header class="section__head" data-reveal>
-          <span class="section__num">04</span>
-          <h2 class="section__title">Parcours</h2>
-        </header>
-
-        <div class="timeline">
-          <!-- TODO: remplacer par les vraies dates / entreprises / écoles -->
-          <div class="timeline__item" data-reveal>
-            <span class="timeline__date">2024 – 2025</span>
-            <h3>Stage – Technicien réseau <span class="muted">· Entreprise</span></h3>
-            <p>Support, administration réseau et systèmes, participation à la mise en place d'une nouvelle infrastructure.</p>
-          </div>
-          <div class="timeline__item" data-reveal>
-            <span class="timeline__date">2023 – 2025</span>
-            <h3>BTS SIO – option SISR <span class="muted">· Établissement</span></h3>
-            <p>Solutions d'Infrastructure, Systèmes et Réseaux. Réseau, systèmes, virtualisation, supervision et cybersécurité.</p>
-          </div>
-          <div class="timeline__item" data-reveal>
-            <span class="timeline__date">2023</span>
-            <h3>Baccalauréat <span class="muted">· Spécialité</span></h3>
-            <p>Obtention du baccalauréat, orientation vers l'informatique.</p>
           </div>
         </div>
+        <span class="phone__speaker" aria-hidden="true"></span>
+        <span class="phone__home" aria-hidden="true"></span>
       </div>
-    </section>
-
-    <!-- ===================== CONTACT ===================== -->
-    <section class="section" id="contact">
-      <div class="container">
-        <header class="section__head" data-reveal>
-          <span class="section__num">05</span>
-          <h2 class="section__title">Contact</h2>
-        </header>
-
-        <div class="contact">
-          <div class="contact__intro" data-reveal>
-            <h3>Discutons de votre projet ou d'un poste.</h3>
-            <p>Une question, une opportunité ? N'hésitez pas à me contacter, je réponds rapidement.</p>
-            <ul class="contact__links">
-              <!-- TODO: remplacer par les vraies coordonnées -->
-              <li><a href="mailto:contact@lipatech.fr">✉️ contact@lipatech.fr</a></li>
-              <li><a href="#" target="_blank" rel="noopener">💼 LinkedIn</a></li>
-              <li><a href="#" target="_blank" rel="noopener">🐙 GitHub</a></li>
-            </ul>
-          </div>
-
-          <!-- TODO: brancher le formulaire (Formspree, Netlify Forms, EmailJS...) -->
-          <form class="contact__form" data-reveal action="#" method="post" novalidate>
-            <div class="field">
-              <label for="name">Nom</label>
-              <input type="text" id="name" name="name" required autocomplete="name">
-            </div>
-            <div class="field">
-              <label for="email">Email</label>
-              <input type="email" id="email" name="email" required autocomplete="email">
-            </div>
-            <div class="field">
-              <label for="message">Message</label>
-              <textarea id="message" name="message" rows="5" required></textarea>
-            </div>
-            <button type="submit" class="btn btn--primary">Envoyer</button>
-            <p class="form__note" hidden></p>
-          </form>
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <!-- ===================== FOOTER ===================== -->
-  <footer class="site-footer">
-    <div class="container site-footer__inner">
-      <p>&copy; <span id="year"></span> Ken · Technicien Systèmes &amp; Réseaux</p>
-      <a href="#top" class="footer__top">Haut de page ↑</a>
     </div>
-  </footer>
 
+  </div><!-- /.scene -->
+
+  <script src="js/data.js" defer></script>
   <script src="js/main.js" defer></script>
 </body>
 </html>

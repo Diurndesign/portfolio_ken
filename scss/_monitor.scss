@@ -1,0 +1,230 @@
+// ============================================================
+//  Écran d'ordinateur + système "KenOS" + fenêtres
+// ============================================================
+@use 'variables' as *;
+@use 'mixins' as *;
+
+// --- Le moniteur (bezel + pied) ---
+.device--desktop {
+  // Largeur limitée à la fois par la largeur ET la hauteur dispo
+  --w: min(90vw, 1160px, calc((100vh - 150px) * 1.6));
+  // Note : la mise en page (flex colonne) et l'affichage sont gérés
+  // dans _scene.scss, à l'intérieur de la media query "desktop",
+  // pour ne pas écraser le display:none quand on est sur mobile.
+}
+
+.monitor {
+  width: var(--w);
+  padding: 14px;
+  border-radius: 20px;
+  background: linear-gradient(160deg, $bezel-1, $bezel-2);
+  box-shadow:
+    0 2px 0 rgba(255,255,255,0.06) inset,
+    0 40px 80px -30px rgba(0,0,0,0.8),
+    0 10px 30px -10px rgba(0,0,0,0.6);
+
+  &__screen {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #000;
+    box-shadow: 0 0 0 2px #05070c, 0 0 60px rgba($os-accent, 0.12) inset;
+  }
+
+  &__brand {
+    width: 100%;
+    height: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &::after {
+      content: '';
+      width: 46px; height: 4px; border-radius: 4px;
+      background: rgba(255,255,255,0.12);
+    }
+  }
+
+  &__neck {
+    width: 90px;
+    height: 46px;
+    background: linear-gradient(180deg, $metal, $bezel-2);
+    clip-path: polygon(30% 0, 70% 0, 82% 100%, 18% 100%);
+  }
+
+  &__foot {
+    width: 210px;
+    height: 16px;
+    border-radius: 50%;
+    background: linear-gradient(180deg, $metal, $bezel-2);
+    box-shadow: 0 14px 24px -8px rgba(0,0,0,0.7);
+  }
+}
+
+// --- Le système d'exploitation ---
+.os {
+  position: absolute;
+  inset: 0;
+  font-size: clamp(13px, 1.4vw, 15px);
+  background:
+    radial-gradient(90% 70% at 80% 0%, rgba($os-accent, 0.22), transparent 55%),
+    radial-gradient(70% 60% at 0% 100%, rgba(#6366f1, 0.22), transparent 55%),
+    linear-gradient(160deg, $os-wallpaper-1, $os-wallpaper-2);
+  color: #eaf1fb;
+  overflow: hidden;
+}
+
+// --- Barre de menu ---
+.menubar {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px;
+  background: rgba(10, 16, 30, 0.55);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  font-size: 0.82em;
+  z-index: 50;
+
+  &__left, &__right { display: flex; align-items: center; gap: 14px; }
+  &__logo {
+    width: 13px; height: 13px; border-radius: 3px;
+    background: linear-gradient(135deg, $os-accent, #6366f1);
+  }
+  &__brand { font-family: $font-heading; letter-spacing: .3px; }
+  &__item { color: rgba(255,255,255,0.7); }
+  &__clock { font-variant-numeric: tabular-nums; }
+}
+
+// --- Bureau : les dossiers ---
+.desktop-icons {
+  position: absolute;
+  top: 44px; left: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  z-index: 10;
+}
+
+.desk-icon {
+  width: 96px;
+  padding: 8px 6px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  text-align: center;
+  cursor: pointer;
+  transition: background .15s;
+  position: relative;
+
+  &:hover { background: rgba(255,255,255,0.06); }
+  &.is-selected { background: rgba($os-accent, 0.22); }
+
+  .folder { width: 54px; height: auto; filter: drop-shadow(0 4px 6px rgba(0,0,0,.35)); }
+
+  &__glyph {
+    position: absolute;
+    top: 20px;
+    font-size: 20px;
+    filter: drop-shadow(0 1px 1px rgba(0,0,0,.3));
+  }
+  &__label {
+    font-size: 0.78em;
+    line-height: 1.2;
+    color: #eef4ff;
+    text-shadow: 0 1px 3px rgba(0,0,0,.6);
+  }
+}
+
+.desktop-hint {
+  position: absolute;
+  bottom: 14px; left: 0; right: 0;
+  text-align: center;
+  font-size: 0.8em;
+  color: rgba(255,255,255,0.55);
+  z-index: 5;
+  transition: opacity .3s;
+  &.is-hidden { opacity: 0; }
+}
+
+// --- Couche des fenêtres ---
+.windows {
+  position: absolute;
+  inset: 30px 0 0 0;   // sous la barre de menu
+  z-index: 20;
+  pointer-events: none;    // seules les fenêtres captent les clics
+}
+
+.window {
+  position: absolute;
+  width: min(440px, 66%);
+  max-height: 82%;
+  display: flex;
+  flex-direction: column;
+  background: $win-bg;
+  color: $ink;
+  border-radius: $radius;
+  border: 1px solid $win-border;
+  box-shadow: 0 30px 60px -20px rgba(0,0,0,0.6), 0 10px 20px -10px rgba(0,0,0,0.4);
+  overflow: hidden;
+  pointer-events: auto;
+  animation: win-in .18s ease both;
+  --accent: #{$os-accent};
+
+  &.is-active { box-shadow: 0 40px 80px -20px rgba(0,0,0,0.7), 0 0 0 2px rgba($os-accent,0.25); }
+  &.is-closing { animation: win-out .16s ease forwards; }
+  &.is-max { left: 3% !important; top: 8px !important; width: 94%; max-height: 92%; }
+
+  &__bar {
+    height: 38px;
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 12px;
+    background: $win-bar;
+    border-bottom: 1px solid $win-border;
+    cursor: grab;
+    touch-action: none;
+    &:active { cursor: grabbing; }
+  }
+
+  &__lights { display: flex; gap: 7px; }
+  &__title {
+    font-family: $font-heading;
+    font-size: 0.86em;
+    font-weight: 600;
+    color: $ink;
+  }
+
+  &__body {
+    padding: 20px 22px 24px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+.light {
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  border: 0;
+  padding: 0;
+  &--close { background: #ff5f57; }
+  &--min   { background: #febc2e; }
+  &--zoom  { background: #28c840; }
+  &:hover { filter: brightness(0.9); }
+}
+
+@keyframes win-in {
+  0%   { opacity: 0; transform: scale(0.96) translateY(6px); }
+  100% { opacity: 1; transform: none; }
+}
+@keyframes win-out {
+  0%   { opacity: 1; transform: none; }
+  100% { opacity: 0; transform: scale(0.96) translateY(6px); }
+}
