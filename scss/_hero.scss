@@ -1,5 +1,5 @@
 // ============================================================
-//  Hero — la carte mère
+//  Hero — la carte mère (rendu réaliste : tout est dans le SVG)
 // ============================================================
 @use 'tokens' as *;
 
@@ -11,76 +11,29 @@
   padding: 4vmin;
   position: relative;
   overflow: hidden;
+  background: $page;
 }
 
-// halo vert lime (couleur du site) derrière la carte, bords flous.
-// Plus large que la carte → déborde en lueur verte tout autour.
+// halo vert lime (couleur du site) derrière la carte, bords flous
 .hero::before {
   content: '';
   position: absolute;
-  width: min(98vw, 1460px);
+  width: min(98vw, 1500px);
   aspect-ratio: 1.5;
   background: radial-gradient(closest-side,
-    $halo 0%, rgba($halo, 0.65) 46%, transparent 78%);
+    $halo 0%, rgba($halo, 0.6) 46%, transparent 78%);
   opacity: 0.95;
-  filter: blur(55px);
+  filter: blur(58px);
   z-index: 0;
 }
 
 .mb {
   position: relative;
   z-index: 1;
-  width: min(94vw, 1080px);
+  width: min(95vw, 1120px);
   height: auto;
-  // ombre portée = effet de premier plan sur le fond blanc
-  filter: drop-shadow(0 30px 55px rgba(30, 44, 20, 0.35));
+  // ombre portée réaliste = la carte "flotte" sur le fond blanc
+  filter:
+    drop-shadow(0 2px 3px rgba(0,0,0,0.4))
+    drop-shadow(0 30px 55px rgba(20, 40, 15, 0.45));
 }
-
-// --- Le PCB ---
-.pcb        { fill: $pcb; stroke: $pcb-edge; stroke-width: 2; }
-.pcb-sheen  { fill: url(#pcbSheen); }
-.hole       { fill: #05070a; stroke: $metal-line; stroke-width: 3; }
-.hole-ring  { fill: none; stroke: $copper-dim; stroke-width: 3; }
-
-// --- Pistes (cuivre = lime) ---
-.trace      { fill: none; stroke: $copper; stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
-.trace--dim { stroke: $copper-dim; }
-.trace--live{ stroke: $lime; stroke-width: 2.2; filter: url(#glow); }
-.via        { fill: $bg; stroke: $lime; stroke-width: 2; }
-.via--dim   { stroke: $copper-dim; }
-
-// --- Composants ---
-.comp       { fill: $metal; stroke: $metal-line; stroke-width: 1.5; }
-.comp-2     { fill: $slot; stroke: $metal-line; stroke-width: 1.5; }
-.comp-line  { stroke: $metal-line; stroke-width: 1.4; fill: none; }
-
-// CPU
-.cpu-face   { fill: url(#cpuMetal); stroke: $metal-2; stroke-width: 2; }
-.cpu-pins   { fill: url(#pins); }
-.cpu-mark   { fill: none; stroke: $lime; stroke-width: 2; }
-
-// Slots (RAM / PCIe)
-.slot       { fill: $slot; stroke: $metal-line; stroke-width: 1.5; }
-.slot-lip   { fill: $metal-2; }
-.slot-lip--lime { fill: rgba($lime, 0.5); }
-
-// Condensateurs
-.cap        { fill: #12181d; stroke: $metal-line; stroke-width: 1.5; }
-.cap-top    { stroke: #3a4650; stroke-width: 1.4; fill: none; }
-
-// Dissipateur (heatsink)
-.fin        { stroke: $metal-2; stroke-width: 3; }
-
-// --- Sérigraphie (texte imprimé) ---
-.silk {
-  fill: $silk;
-  font-family: $font-mono;
-  opacity: 0.7;
-  letter-spacing: 1px;
-}
-.silk--label { font-size: 13px; opacity: 0.55; }
-.silk--brand { fill: $lime; font-family: $font-head; font-weight: 700; opacity: 1; letter-spacing: 3px; }
-.silk--big   { font-size: 15px; letter-spacing: 2px; }
-
-// --- Impulsions de données ---
-.pulse { fill: $lime; filter: url(#glow); }
